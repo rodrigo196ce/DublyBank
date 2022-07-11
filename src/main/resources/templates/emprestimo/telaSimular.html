@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+<div class="container">
+    <div th:replace="~{base :: titulo('Empréstimo')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/emprestimo}" role="button">Voltar</a>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h5 class="card-header">Dados da simulação</h5>
+                <div class="card-body">
+                    <form th:object="${simularEmprestimoDto}" th:action="@{/emprestimo/simularSolicitacao}" method="post">
+                        <div class="form-floating mb-3">
+                            <input th:field="*{valor}" th:errorclass="is-invalid" type="number"
+                                   class="form-control" id="imputValor" aria-describedby="msgValor">
+                            <label for="imputValor">R$</label>
+                            <div id="msgValor" class="form-text">Informe o valor do empréstimo.</div>
+                            <div class="invalid-feedback" th:errors="*{valor}"></div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input th:field="*{data}" th:errorclass="is-invalid" type="date"
+                                   class="form-control" aria-describedby="msgData">
+                            <div id="msgData" class="form-text">Informe a data de pagamento.</div>
+                            <div class="invalid-feedback" th:errors="*{data}"></div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Simular</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${errorDate != null}">
+        <div class="row mt-4 ">
+            <div class="alert alert-danger col-4" role="alert" th:text="${errorDate}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

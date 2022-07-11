@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Transferência')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/areaPix}" role="button">Voltar</a>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h5 class="card-header">Dados da transferência</h5>
+                <div class="card-body">
+                    <div class="fw-light mb-4" th:text="${'Saldo disponível: R$ ' + #numbers.formatDecimal
+                         (user.conta.saldo,3,'POINT',2,'COMMA')}"></div>
+                    <form th:object="${transferenciaPixDto}" th:action="@{/areaPix/transferencia01}" method="post">
+                        <div class="form-floating mb-3">
+                            <input th:field="*{valor}" th:errorclass="is-invalid" type="number"
+                                   class="form-control" id="imputValor" aria-describedby="msgValor">
+                            <label for="imputValor">R$</label>
+                            <div id="msgValor" class="form-text">Informe o valor da transferência.</div>
+                            <div class="invalid-feedback" th:errors="*{valor}"></div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input th:field="*{chave}" th:errorclass="is-invalid" type="text"
+                                   class="form-control" id="imputChave" aria-describedby="msgChave">
+                            <label for="imputChave">CPF, E-mail ou Chave aleatória</label>
+                            <div id="msgChave" class="form-text">Informe a chave Pix do destinatário.</div>
+                            <div class="invalid-feedback" th:errors="*{chave}"></div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${error != null}">
+        <div class="row mt-4 ">
+            <div class="alert alert-danger col-4" role="alert" th:text="${error}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Depósito')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="fs-4">Qual é o valor do depósito?</p>
+                    <form th:object="${valorDepositoDto}"
+                          th:action="@{/deposito/valorDeposito}" method="post">
+                        <div class="form-floating mb-3">
+                            <input th:field="*{valor}" th:errorclass="is-invalid" type="number" class="form-control"
+                                   id="imputNome">
+                            <label for="imputNome">R$</label>
+                            <div class="invalid-feedback" th:errors="*{valor}"></div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${error != null}">
+        <div class="row mt-4 ">
+            <div class="alert alert-danger col-3" role="alert" th:text="${error}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

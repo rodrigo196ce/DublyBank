@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+    <div th:replace="~{base :: titulo('Minha conta')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h5 class="card-header">Dados pessoais</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p class="fst-normal">Nome</p>
+                            <p class="fw-light" th:text="${user.nome}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Cpf</p>
+                            <p class="fw-light" th:text="${user.cpf}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">E-mail</p>
+                            <p class="fw-light" th:text="${user.email}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Data de cadastro</p>
+                            <p class="fw-light" th:text="${#temporals.format(user.dataCadastro,'dd/MM/yyyy')}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <h5 class="card-header">Dados da conta</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p class="fst-normal">Conta</p>
+                            <p class="fw-light" th:text="${user.conta.conta}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Agencia</p>
+                            <p class="fw-light" th:text="${user.conta.agencia}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a col-4 class="btn btn-outline-primary" th:href="@{#}"role="button">Editar</a>
+        <a col-4 class="btn btn-outline-danger" th:href="@{#}"role="button">Remover</a>
+    </div>
+</div>
+</body>
+</html>

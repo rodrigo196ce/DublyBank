@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"><head>
+<body>
+
+    <div th:replace="~{base :: logo}"></div>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Histórico')}"></div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-secondary mb-3" th:href="@{/conta}" role="button">Voltar</a>
+        </div>
+
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" aria-current="page" href="#">Todos</a>
+                    <a class="nav-item nav-link" th:href="@{/historico/deposito}">Depósitos</a>
+                    <a class="nav-item nav-link" th:href="@{/historico/transferencia}">Transferências</a>
+                    <a class="nav-item nav-link" href="#">Empréstimos</a>
+                    <a class="nav-item nav-link" href="#">Recargas de celular</a>
+                    <a class="nav-item nav-link" href="#">Doações</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row mt-3" th:each="deposito : ${deposito}">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <p class="fst-normal">Valor do depósito</p>
+                                <p class="fw-light" th:text="${'R$ ' +
+                                    #numbers.formatDecimal(deposito.valor,3,'POINT',2,'COMMA')}"></p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="fst-normal">Data</p>
+                                <p class="fw-light" th:text="${#temporals
+                                    .format(deposito.data,'dd/MM/yyyy')}"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3" th:each="transferencia : ${transferencia}">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <p class="fst-normal">Valor da transferência</p>
+                                <p class="fw-light" th:text="${'R$ ' +
+                                    #numbers.formatDecimal(transferencia.valor,3,'POINT',2,'COMMA')}"></p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="fst-normal">Data</p>
+                                <p class="fw-light" th:text="${#temporals
+                                    .format(transferencia.data,'dd/MM/yyyy')}"></p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="fst-normal">De</p>
+                                <p class="fw-light" th:text="${transferencia.conta.user.nome}"></p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="fst-normal">Para</p>
+                                <p class="fw-light" th:text="${transferencia.nomeDestinatario}"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

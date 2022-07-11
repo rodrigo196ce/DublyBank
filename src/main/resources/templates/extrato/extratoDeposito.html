@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+    <div th:replace="~{base :: titulo('Extrato')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="alert alert-success" role="alert">
+                Depósito realizado com sucesso
+            </div>
+            <div class="card">
+                <h5 class="card-header">Depósito</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p class="fst-normal">Valor do deposito</p>
+                            <p class="fw-light" th:text="${'R$ ' +
+                                    #numbers.formatDecimal(deposito.valor,3,'POINT',2,'COMMA')}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Data</p>
+                            <p class="fw-light" th:text="${#temporals
+                                .format(deposito.data,'dd/MM/yyyy')}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Conta</p>
+                            <p class="fw-light" th:text="${deposito.conta.conta}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Agencia</p>
+                            <p class="fw-light" th:text="${deposito.conta.agencia}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Nome</p>
+                            <p class="fw-light" th:text="${deposito.conta.user.nome}"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div th:if="${resultDeposito == true}">
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <p class="fst-normal">Valor do deposito</p>
+                                <p class="fw-light" th:text="${'R$ ' +
+                                    #numbers.formatDecimal(valor,3,'POINT',2,'COMMA')}"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+</body>
+</html>

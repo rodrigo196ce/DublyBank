@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <div th:replace="~{base :: logo}"></div>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Registrar Chaves')}"></div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-secondary mb-3" th:href="@{/areaPix}" role="button">Voltar</a>
+        </div>
+
+        <div class="card w-50 mb-2" th:if="${user.conta.chavePixCpfRegistrada == null}">
+            <div class="card-body">
+                <h5 class="card-title">Cpf</h5>
+                <p class="card-text">O seu Cpf será usado para receber transferências por Pix.</p>
+                <a th:href="@{/areaPix/cadastrarChaves/(tipo='cpf')}" class="btn btn-success">Cadastrar</a>
+            </div>
+        </div>
+
+        <div class="card w-50 mb-2" th:if="${user.conta.chavePixEmailRegistrada == null}">
+            <div class="card-body">
+                <h5 class="card-title">E-mail</h5>
+                <p class="card-text">O seu E-mail será usado para receber transferências por Pix.</p>
+                <a th:href="@{/areaPix/cadastrarChaves/(tipo='email')}" class="btn btn-success">Cadastrar</a>
+            </div>
+        </div>
+
+        <div class="card w-50" th:if="${user.conta.chavePixAleatoria == null}">
+            <div class="card-body">
+                <h5 class="card-title">Chave aleatória</h5>
+                <p class="card-text">Uma chave aleatória será usada para receber transferências por Pix.</p>
+                <a th:href="@{/areaPix/cadastrarChaves/(tipo='chaveAleatoria')}"
+                        class="btn btn-success">Cadastrar</a>
+            </div>
+        </div>
+
+        <div th:if="${mensagem != null}">
+            <div class="row mt-4 ">
+                <div class="alert alert-success col-4" role="alert" th:text="${mensagem}"></div>
+            </div>
+        </div>
+
+        <div th:if="${user.conta.chavePixCpfRegistrada==true && user.conta.chavePixEmailRegistrada==true &&
+                user.conta.chavePixAleatoria != null}" class="row">
+            <div class="alert alert-warning col-6" role="alert">
+                Todas as chaves pix já estão cadastradas.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Login')}"></div>
+
+    <div class="card">
+        <div class="row">
+            <div class="col-8">
+                <form class="card-body" th:action="@{/login}" method="post">
+                    <div class="form-floating mb-3 mt-2">
+                        <input type="text" name="username" class="form-control" id="floatingInput">
+                        <label for="floatingInput">Nome de usuário</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" class="form-control" id="floatingPassword">
+                        <label for="floatingPassword">Senha</label>
+                    </div>
+                    <button type="submit" class="btn btn-success mb-2">Enviar</button>
+                </form>
+            </div>
+
+            <div class="col-4 mt-5">
+                <p class="fw-light">Não possui cadastro?</p>
+                <a col-4 class="btn btn-primary" th:href="@{/cadastrar}"
+                   role="button">Cadastrar-se</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

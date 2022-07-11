@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <div th:replace="~{base :: logo}"></div>
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Conta')}"></div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
+        </div>
+
+        <div class="p-3 mb-2 bg-light text-dark mb-4">
+            <p>Saldo disponível</p>
+            <span th:text="${'R$ ' + #numbers.formatDecimal(user.conta.saldo,3,'POINT',2,'COMMA')}"></span>
+        </div>
+
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/dinheiroGuardado}">Dinheiro guardado</a>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/historico}">Histórico</a>
+            </div>
+        </nav>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+
+    <div th:replace="~{base :: logo}"></div>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Cadastre-se')}"></div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-secondary mb-3" th:href="@{/login}" role="button">Voltar</a>
+        </div>
+
+        <div class="card">
+            <div class="shadow-none p-3 mb-0 bg-light rounded">Preencha seus dados para concluir o cadastro.</div>
+            <form th:object="${cadastroUserDto}" class="card-body" th:action="@{/cadastrar/novo}" method="post">
+                <div class="form-floating mb-3">
+                    <input th:field="*{nome}" th:errorclass="is-invalid" type="text" class="form-control"
+                           id="imputNome">
+                    <label for="imputNome">Nome</label>
+                    <div class="invalid-feedback" th:errors="*{nome}"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input th:field="*{cpf}" th:errorclass="is-invalid" type="text" class="form-control"
+                           id="imputCpf">
+                    <label for="imputCpf">Cpf</label>
+                    <div class="invalid-feedback" th:errors="*{cpf}"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input th:field="*{email}" th:errorclass="is-invalid" type="email" class="form-control"
+                           id="imputEmail">
+                    <label for="imputEmail">E-mail</label>
+                    <div class="invalid-feedback" th:errors="*{email}"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input th:field="*{username}" th:errorclass="is-invalid" type="text" class="form-control"
+                           id="imputUsername">
+                    <label for="imputUsername">Nome de usuário</label>
+                    <div class="invalid-feedback" th:errors="*{username}"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input th:field="*{password}" th:errorclass="is-invalid" type="password" class="form-control"
+                           id="imputPassword">
+                    <label for="imputPassword">Senha</label>
+                    <div class="invalid-feedback" th:errors="*{password}"></div>
+                </div>
+                <button type="submit" class="btn btn-success mb-2">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

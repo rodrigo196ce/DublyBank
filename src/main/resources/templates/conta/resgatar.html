@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <div th:replace="~{base :: logo}"></div>
+
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Resgatar')}"></div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-secondary mb-3" th:href="@{/dinheiroGuardado}" role="button">Voltar</a>
+        </div>
+
+        <div class="p-3 mb-2 bg-light text-dark mb-4">
+            <p>Total guardado</p>
+            <span th:text="${'R$ ' + #numbers.formatDecimal(
+                user.conta.dinheiroGuardado,3,'POINT',2,'COMMA')}"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="fs-4">Qual o valor que deseja resgatar?</p>
+                        <form th:object="${operacaoGuardarDinheiroDto}"
+                                th:action="@{/dinheiroGuardado/operacao/(tipo='resgatar')}" method="post">
+                            <div class="form-floating mb-3">
+                                <input th:field="*{valor}" th:errorclass="is-invalid"
+                                       type="number" class="form-control" id="imputValor">
+                                <label for="imputValor">R$</label>
+                                <div class="invalid-feedback" th:errors="*{valor}"></div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${error != null}">
+            <div class="row mt-4 ">
+                <div class="alert alert-danger col-4" role="alert" th:text="${error}"></div>
+            </div>
+        </div>
+        <div th:if="${mensagemSucesso != null}">
+            <div class="row mt-4 ">
+                <div class="alert alert-success col-4" role="alert" th:text="${mensagemSucesso}"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
