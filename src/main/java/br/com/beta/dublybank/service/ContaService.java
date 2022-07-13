@@ -130,24 +130,6 @@ public class ContaService {
         userDestinatario.getConta().setSaldo(userDestinatario.getConta().getSaldo().add(valorBigDecimal));
     }
 
-    @Transactional
-    public Emprestimo emprestimo(User user,String valorSolicitado,String dataPagamento){
-
-        BigDecimal valorSolicitadoBd = this.dublyUtil.converterDoubleForBigDecimal(valorSolicitado);
-        LocalDate dataPagamentoLd = this.dublyUtil.converterStringForLocalDate(dataPagamento);
-        Emprestimo emprestimo = new Emprestimo(valorSolicitadoBd,dataPagamentoLd,user.getConta());
-        user.getConta().getEmprestimos().add(this.emprestimoRepository.save(emprestimo));
-
-        Period period = LocalDate.now().until(dataPagamentoLd);
-        for(int i=0;i<=100;i++){
-            if(period.toTotalMonths()==i){
-                emprestimo.setJuros((i*3));
-            }
-        }
-        emprestimo.setTotalMesesFinanciamento(period.toTotalMonths());
-
-        return emprestimo;
-    }
 
 
 
