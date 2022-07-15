@@ -1,5 +1,7 @@
 package br.com.beta.dublybank.model;
 
+import br.com.beta.dublybank.enums.StatusEmprestimo;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,17 +17,17 @@ public class Emprestimo {
     private LocalDate dataPagamento;
     private Integer juros;
     private BigDecimal totalPagar;
-    private Boolean concluido;
+    @Enumerated(EnumType.STRING)
+    private StatusEmprestimo status;
     @ManyToOne
     private Conta conta;
     private Long totalMesesFinanciamento;
 
     public Emprestimo(){}
-    public Emprestimo(BigDecimal valorSolicitado,LocalDate dataPagamento,Conta conta){
+    public Emprestimo(BigDecimal valorSolicitado,LocalDate dataPagamento){
         this.valorSolicitado = valorSolicitado;
         this.dataPagamento = dataPagamento;
-        this.concluido = false;
-        this.conta = conta;
+        this.status = StatusEmprestimo.SIMULACAO;
     }
 
     public Integer getId() {
@@ -67,12 +69,12 @@ public class Emprestimo {
         this.totalPagar = totalPagar;
     }
 
-    public Boolean getConcluido() {
-        return concluido;
+    public StatusEmprestimo getStatus() {
+        return status;
     }
 
-    public void setConcluido(Boolean concluido) {
-        this.concluido = concluido;
+    public void setStatus(StatusEmprestimo status) {
+        this.status = status;
     }
 
     public Conta getConta() {
@@ -89,4 +91,5 @@ public class Emprestimo {
     public void setTotalMesesFinanciamento(Long totalMesesFinanciamento) {
         this.totalMesesFinanciamento = totalMesesFinanciamento;
     }
+
 }

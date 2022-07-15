@@ -1,5 +1,6 @@
 package br.com.beta.dublybank.service;
 
+import br.com.beta.dublybank.enums.StatusEmprestimo;
 import br.com.beta.dublybank.model.*;
 import br.com.beta.dublybank.repository.ContaRepository;
 import br.com.beta.dublybank.repository.DepositoRepository;
@@ -128,6 +129,40 @@ public class ContaService {
         user.getConta().getTransferenciasPix().add(this.transferenciaPixRepository.save(transferenciaPix));
         user.getConta().setSaldo(user.getConta().getSaldo().subtract(valorBigDecimal));
         userDestinatario.getConta().setSaldo(userDestinatario.getConta().getSaldo().add(valorBigDecimal));
+    }
+
+    @Transactional
+    public void simularEmprestimo(User user, String valorSolicitado, String data) {
+        BigDecimal valorSolicitadoBd = this.dublyUtil.converterDoubleForBigDecimal(valorSolicitado);
+        LocalDate dataLd = this.dublyUtil.converterStringForLocalDate(data);
+        Emprestimo emprestimo = this.emprestimoRepository.save(new Emprestimo(valorSolicitadoBd, dataLd));
+        if(user.getConta().getEmprestimoSimulacao() != null){
+            this.emprestimoRepository.delete(user.getConta().getEmprestimoSimulacao());
+        }
+        user.getConta().setEmprestimoSimulacao(emprestimo);
+
+        Period period = LocalDate.now().until(dataLd);
+        for (int i = 0; i <= 1000000; i++) {
+            if (period.toTotalMonths() == i) {
+                emprestimo.setJuros((i * 3));
+            }
+        }
+        emprestimo.setTotalMesesFinanciamento(period.toTotalMonths());
+        double juros = (double) emprestimo.getJuros() / 100;
+        BigDecimal jurosBd = BigDecimal.valueOf(juros);
+        BigDecimal resultMultiply = emprestimo.getValorSolicitado().multiply(jurosBd);
+        emprestimo.setTotalPagar(emprestimo.getValorSolicitado().add(resultMultiply));
+    }
+
+    @Transactional
+    public void realizarEmprestimo(User user){
+        user.getConta().getEmprestimoSimulacao().setConta(user.getConta());
+        user.getConta().getEmprestimoSimulacao().setStatus(StatusEmprestimo.PENDENTE);
+        user.getConta().getEmprestimos().add(user.getConta().getEmprestimoSimulacao());
+        user.getConta().setSaldo(user.getConta().getSaldo().add(user.getConta().getEmprestimoSimulacao().getValorSolicitado()));
+        user.getConta().setEmprestimoSimulacao(null);
+
+
     }
 
 

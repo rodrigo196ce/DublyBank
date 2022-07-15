@@ -27,7 +27,7 @@ public class DublyUtil {
             // Retorna true se a dataF é antes da data atual.
             return true;
         }else{
-            // Retorna true se a dataF é antes da data atual.
+            // Retorna false se a dataF é depois da data atual.
             return false;
         }
     }

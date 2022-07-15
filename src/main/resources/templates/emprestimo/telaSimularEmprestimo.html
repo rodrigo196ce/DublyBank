@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Empréstimo')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/emprestimo}" role="button">Cancelar</a>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h5 class="card-header">Resultado da simulação</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p class="fst-normal">Valor solicitado</p>
+                            <p class="fw-light"
+                               th:text="${'R$ ' + #numbers.formatDecimal(user.conta.emprestimoSimulacao.valorSolicitado,3,'POINT',2,'COMMA')}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Data de pagamento</p>
+                            <p class="fw-light" th:text="${#temporals.format(user.conta.emprestimoSimulacao.dataPagamento,'dd/MM/yyyy')}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Juros</p>
+                            <p class="fw-light">Calculo: 3% ao mês.</p>
+                            <p class="fw-light"
+                               th:text="${'Total de meses financiados: ' + user.conta.emprestimoSimulacao.totalMesesFinanciamento}"></p>
+                            <p class="fw-light" th:text="${'Juros Total: ' + user.conta.emprestimoSimulacao.juros + '%'}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Total a pagar</p>
+                            <p class="fw-light"
+                               th:text="${'R$ ' + #numbers.formatDecimal(user.conta.emprestimoSimulacao.totalPagar,3,'POINT',2,'COMMA')}"></p>
+                        </li>
+                    </ul>
+                    <a class="btn btn-warning mb-3" th:href="@{/emprestimo/telaDadosSimularEmprestimo}" role="button">Nova simulação</a>
+                    <a class="btn btn-success mb-3" th:href="@{/emprestimo/realizarEmprestimo}" role="button">Realizar empréstimo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
