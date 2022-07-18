@@ -161,8 +161,6 @@ public class ContaService {
         user.getConta().getEmprestimos().add(user.getConta().getEmprestimoSimulacao());
         user.getConta().setSaldo(user.getConta().getSaldo().add(user.getConta().getEmprestimoSimulacao().getValorSolicitado()));
         user.getConta().setEmprestimoSimulacao(null);
-
-
     }
 
 

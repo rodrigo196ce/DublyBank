@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Meus Empréstimos')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/emprestimo}" role="button">Voltar</a>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <div class="card mb-3">
+                <div class="card-header">Empréstimos pendentes</div>
+                <div class="card-body">
+                    <div class="card mb-3" th:each="emprestimo : ${user.conta.emprestimos}">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <p class="fst-normal">Valor</p>
+                                    <p class="fw-light"
+                                       th:text="${'R$ ' + #numbers.formatDecimal(emprestimo.totalPagar,3,'POINT',2,'COMMA')}"></p>
+                                </li>
+                            </ul>
+                            <a class="btn btn-success mt-2" th:href="@{#}" role="button">Pagar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">Empréstimos finalizados</div>
+                <div class="card-body">
+                    <p class="card-text">Visualize o histórico de empréstimos finalizados.</p>
+                    <a href="#" class="btn btn-primary">Visualizar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

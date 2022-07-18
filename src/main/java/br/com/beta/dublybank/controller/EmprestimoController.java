@@ -47,7 +47,8 @@ public class EmprestimoController {
             model.addAttribute("errorData","Data inválida. Informe uma data superior a atual.");
             return "emprestimo/telaDadosSimularEmprestimo.html";
         }
-        this.contaService.simularEmprestimo(this.userService.findUserAndConta(),simularEmprestimoDto.getValor(),simularEmprestimoDto.getData());
+        this.contaService.simularEmprestimo(this.userService.findUserAndConta(),simularEmprestimoDto.getValor(),
+                simularEmprestimoDto.getData());
         model.addAttribute("user",this.userService.findUserAndConta());
         return "emprestimo/telaSimularEmprestimo.html";
     }
@@ -58,6 +59,12 @@ public class EmprestimoController {
         this.contaService.realizarEmprestimo(user);
         model.addAttribute("user",user);
         return "extrato/extratoEmprestimo.html";
+    }
+
+    @RequestMapping("meusEmprestimos")
+    public String meusEmprestimos(Model model){
+        model.addAttribute("user",this.userService.findUserAndConta());
+        return "emprestimo/meusEmprestimos.html";
     }
 
 
