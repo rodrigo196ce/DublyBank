@@ -56,9 +56,14 @@ public class EmprestimoController {
     @RequestMapping("realizarEmprestimo")
     public String realizarEmprestimo(Model model){
         User user = this.userService.findUserAndConta();
-        this.contaService.realizarEmprestimo(user);
+        Boolean result = this.contaService.realizarEmprestimo(user);
         model.addAttribute("user",user);
-        return "extrato/extratoEmprestimo.html";
+        if(result==false){
+            model.addAttribute("errorLimite","Limite de empréstimo ultrapassado.");
+            return "emprestimo/telaSimularEmprestimo.html";
+        }else{
+            return "extrato/extratoEmprestimo.html";
+        }
     }
 
     @RequestMapping("meusEmprestimos")

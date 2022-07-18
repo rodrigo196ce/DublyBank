@@ -46,6 +46,17 @@
             </div>
         </div>
     </div>
+    <div th:if="${errorLimite != null}">
+        <div class="row mt-4 ">
+            <div class="alert alert-danger col-9" role="alert">
+                <h4 class="alert-heading" th:text="${errorLimite}"></h4>
+                <p>Você ultrapassou o limite de 3 empréstimos. Para realizar um novo,
+                    é necessário realizar o pagamento dos empréstimos pendentes.</p>
+                <hr>
+                Para realizar o pagamento, acesse <a th:href="@{/emprestimo/meusEmprestimos} " class="alert-link">Meus empréstimos</a>.
+            </div>
+        </div>
+    </div>
 
 
 </div>

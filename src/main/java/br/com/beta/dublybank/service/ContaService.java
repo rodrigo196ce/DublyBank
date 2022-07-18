@@ -34,6 +34,9 @@ public class ContaService {
     @Autowired
     private EmprestimoRepository emprestimoRepository;
 
+    @Autowired
+    private EmprestimoService emprestimoService;
+
     Random random = new Random();
 
     public Conta save(User user){
@@ -155,12 +158,18 @@ public class ContaService {
     }
 
     @Transactional
-    public void realizarEmprestimo(User user){
-        user.getConta().getEmprestimoSimulacao().setConta(user.getConta());
-        user.getConta().getEmprestimoSimulacao().setStatus(StatusEmprestimo.PENDENTE);
-        user.getConta().getEmprestimos().add(user.getConta().getEmprestimoSimulacao());
-        user.getConta().setSaldo(user.getConta().getSaldo().add(user.getConta().getEmprestimoSimulacao().getValorSolicitado()));
-        user.getConta().setEmprestimoSimulacao(null);
+    public Boolean realizarEmprestimo(User user){
+        Boolean resultValidarLimiteEmprestimo = this.emprestimoService.validarLimiteEmprestimos(user);
+        if(resultValidarLimiteEmprestimo==false){
+            return false;
+        }else{
+            user.getConta().getEmprestimoSimulacao().setConta(user.getConta());
+            user.getConta().getEmprestimoSimulacao().setStatus(StatusEmprestimo.PENDENTE);
+            user.getConta().getEmprestimos().add(user.getConta().getEmprestimoSimulacao());
+            user.getConta().setSaldo(user.getConta().getSaldo().add(user.getConta().getEmprestimoSimulacao().getValorSolicitado()));
+            user.getConta().setEmprestimoSimulacao(null);
+            return true;
+        }
     }
 
 
