@@ -14,37 +14,47 @@
 
     <a class="btn btn-success mb-3" th:href="@{/emprestimo/telaDadosSimularEmprestimo}" role="button">Novo empréstimo</a>
 
-    <div class="row mt-3">
-        <div class="col-4">
-            <div class="card mb-3">
-                <div class="card-header">Empréstimos pendentes</div>
-                <div class="card-body">
-                    <div class="card mb-3" th:each="emprestimo : ${user.conta.emprestimos}">
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <p class="fst-normal">Valor</p>
-                                    <p class="fw-light"
-                                       th:text="${'R$ ' + #numbers.formatDecimal(emprestimo.totalPagar,3,'POINT',2,'COMMA')}"></p>
-                                </li>
-                            </ul>
-                            <a class="btn btn-success mt-2" th:href="@{#}" role="button">Pagar</a>
+    <div th:if="${not #lists.isEmpty(user.conta.emprestimos)}">
+        <div class="row mt-3">
+            <div class="col-4">
+                <div class="card mb-3">
+                    <div class="card-header">Empréstimos pendentes</div>
+                    <div class="card-body">
+                        <div class="card mb-3" th:each="emprestimo : ${user.conta.emprestimos}">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <p class="fst-normal">Valor</p>
+                                        <p class="fw-light"
+                                           th:text="${'R$ ' + #numbers.formatDecimal(emprestimo.totalPagar,3,'POINT',2,'COMMA')}"></p>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-success mt-2" th:href="@{#}" role="button">Pagar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="card">
-                <div class="card-header">Empréstimos finalizados</div>
-                <div class="card-body">
-                    <p class="card-text">Visualize o histórico de empréstimos finalizados.</p>
-                    <a href="#" class="btn btn-primary">Visualizar</a>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Empréstimos finalizados</div>
+                    <div class="card-body">
+                        <p class="card-text">Visualize o histórico de empréstimos finalizados.</p>
+                        <a href="#" class="btn btn-primary">Visualizar</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div th:if="${#lists.isEmpty(user.conta.emprestimos)}">
+        <div class="row">
+            <div class="col-4">
+                <div class="alert alert-warning" role="alert">
+                    Você não possui nenhum empréstimo.
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 </body>
