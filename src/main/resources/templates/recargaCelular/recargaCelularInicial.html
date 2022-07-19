@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Recarga de celular')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
+    </div>
+
+<!--    <form th:href="@{#}" method="post">-->
+<!--        <div class="form-group row">-->
+<!--            <div class="col-md-4 mt-5">-->
+<!--                <label for="phone">Qual número você quer recarregar?</label>-->
+<!--                <div class="input-group">-->
+<!--                    <input type="tel" class="form-control" id="phone" pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}"-->
+<!--                           autocomplete="off" />-->
+<!--                    <div class="input-group-append">-->
+<!--                        <span class="input-group-text"><i class="fas fa-phone"></i></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <span class="help-block">Formato: 85-98456-7890.</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <button class="btn btn-primary" type="submit">Continuar</button>-->
+<!--    </form>-->
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <p class="fs-4">Qual número você quer recarregar?</p>
+                    <form th:action="@{#}" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control" id="imputTel" pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}" autocomplete="off" />
+                            <label for="imputTel">Formato: 85-98456-7890</label>
+                        </div>
+                        <button type="submit" class="btn btn-success">Continuar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

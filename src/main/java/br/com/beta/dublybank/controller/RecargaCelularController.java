@@ -9,7 +9,7 @@ public class RecargaCelularController {
 
     @RequestMapping()
     public String recargaCelular(){
-        return null;
+        return "recargaCelular/recargaCelularInicial.html";
     }
 
 }

@@ -23,6 +23,8 @@ public class User {
     @NotBlank
     private String email;
     private LocalDate dataCadastro;
+    @NotBlank
+    private String telefone;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
     private Conta conta;
@@ -32,7 +34,7 @@ public class User {
     private Set<Authority> authorities = new HashSet<>();
 
     public User(){}
-    public User(String username,String password,String nome,String cpf,String email){
+    public User(String username,String password,String nome,String cpf,String email,String telefone){
         this.username = username;
         this.password = password;
         this.nome = nome;
@@ -41,6 +43,7 @@ public class User {
         this.enabled = true;
         this.authorities.add(new Authority("USER"));
         this.dataCadastro = LocalDate.now();
+        this.telefone = telefone;
     }
 
     public String getUsername() {
@@ -113,5 +116,13 @@ public class User {
 
     public void setConta(Conta conta) {
         this.conta = conta;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

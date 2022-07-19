@@ -15,6 +15,8 @@ public class CadastroUserDto {
     private String cpf;
     @NotBlank(message = "O campo é obrigatório.")
     private String email;
+    @NotBlank(message = "O campo é obrigatório.")
+    private String telefone;
 
     public String getUsername() {
         return username;
@@ -56,7 +58,15 @@ public class CadastroUserDto {
         this.email = email;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     public User toUser(){
-        return new User(this.username,this.password,this.nome,this.cpf,this.email);
+        return new User(this.username,this.password,this.nome,this.cpf,this.email,this.telefone);
     }
 }
