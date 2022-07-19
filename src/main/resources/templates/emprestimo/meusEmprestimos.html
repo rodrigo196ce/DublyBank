@@ -28,6 +28,10 @@
                                         <p class="fw-light"
                                            th:text="${'R$ ' + #numbers.formatDecimal(emprestimo.totalPagar,3,'POINT',2,'COMMA')}"></p>
                                     </li>
+                                    <li class="list-group-item">
+                                        <p class="fst-normal">Data de pagamento</p>
+                                        <p class="fw-light" th:text="${#temporals.format(emprestimo.dataPagamento,'dd/MM/yyyy')}"></p>
+                                    </li>
                                 </ul>
                                 <a class="btn btn-success mt-2" th:href="@{#}" role="button">Pagar</a>
                             </div>
