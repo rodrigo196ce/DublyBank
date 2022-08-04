@@ -8,42 +8,13 @@
 
     <div th:replace="~{base :: titulo('Home')}"></div>
 
-    <div class="container">
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/conta}">Conta</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/areaPix}">Área Pix</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/emprestimo}">Empréstimo</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/deposito}">Depósito</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/recargaCelular}">Recarga de celular</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Doação</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/minhaConta}">Minha conta</a>
-            </div>
-        </nav>
+    <div class="list-group">
+        <a th:href="@{/conta}" class="list-group-item list-group-item-action list-group-item-light">Conta</a>
+        <a th:href="@{/areaPix}" class="list-group-item list-group-item-action list-group-item-light">Área Pix</a>
+        <a th:href="@{/emprestimo}" class="list-group-item list-group-item-action list-group-item-light">Empréstimo</a>
+        <a th:href="@{/deposito}" class="list-group-item list-group-item-action list-group-item-light">Depósito</a>
+        <a th:href="@{#}" class="list-group-item list-group-item-action list-group-item-light">Recarga de celular</a>
+        <a th:href="@{/minhaConta}" class="list-group-item list-group-item-action list-group-item-light">Minha conta</a>
     </div>
 </div>
 
