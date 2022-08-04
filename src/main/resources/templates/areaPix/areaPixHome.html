@@ -3,31 +3,21 @@
 <head th:replace="~{base :: head}"></head>
 <body>
 
-    <div th:replace="~{base :: logo}"></div>
+<div th:replace="~{base :: logo}"></div>
 
-    <div class="container">
-        <div th:replace="~{base :: titulo('Área Pix')}"></div>
+<div class="container">
+    <div th:replace="~{base :: titulo('Área Pix')}"></div>
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
-        </div>
-
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/areaPix/transferir}">Transferir</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/areaPix/registrarChaves}">Registrar chaves</a>
-            </div>
-        </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/areaPix/configurarPix}">Configurar pix</a>
-            </div>
-        </nav>
-
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/home}" role="button">Voltar</a>
     </div>
+
+    <div class="list-group">
+        <a th:href="@{/areaPix/transferir}" class="list-group-item list-group-item-action list-group-item-light">Transferir</a>
+        <a th:href="@{/areaPix/registrarChaves}" class="list-group-item list-group-item-action list-group-item-light">Registrar chaves</a>
+        <a th:href="@{/areaPix/configurarPix}" class="list-group-item list-group-item-action list-group-item-light">Configurar pix</a>
+    </div>
+
+</div>
 </body>
 </html>
