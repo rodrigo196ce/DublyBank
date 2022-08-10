@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Recarga de celular')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/recargaCelular}" role="button">Voltar</a>
+    </div>
+
+    <div class="p-3 mb-2 bg-light text-dark mb-4">
+        <p class="fs-6" th:text="'Número: '+${numero}"></p>
+        <p class="fs-6" th:text="'Saldo disponível: R$ '+ ${#numbers.formatDecimal(user.conta.saldo,3,'POINT',2,'COMMA')}"></p>
+    </div>
+
+    <p class="fs-4">Qual o valor da recarga?</p>
+    <form th:action="@{/recargaCelular/realizarRecarga/(numero=${numero})}" method="post">
+        <div class="row">
+            <div class="col-2">
+                <select class="form-select" aria-label="Default select example" name="valoresRecargaCelular">
+                    <div th:each="valor : ${valores}">
+                        <option th:value="${valor.valor}" th:text="${valor.valor}"></option>
+                    </div>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Enviar</button>
+    </form>
+
+    <div th:if="${errorSaldo != null}">
+        <div class="row mt-4 ">
+            <div class="alert alert-danger col-4" role="alert" th:text="${errorSaldo}"></div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

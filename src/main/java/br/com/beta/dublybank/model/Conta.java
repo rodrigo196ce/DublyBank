@@ -33,6 +33,9 @@ public class Conta {
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Emprestimo emprestimoSimulacao;
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "conta")
+    private List<RecargaCelular> recargasCelular = new ArrayList<>();
+
     public Conta(){}
     public Conta(Integer conta,Integer agencia,User user){
         this.conta = conta;
@@ -152,5 +155,13 @@ public class Conta {
 
     public void setEmprestimoSimulacao(Emprestimo emprestimoSimulacao) {
         this.emprestimoSimulacao = emprestimoSimulacao;
+    }
+
+    public List<RecargaCelular> getRecargasCelular() {
+        return recargasCelular;
+    }
+
+    public void setRecargasCelular(List<RecargaCelular> recargasCelular) {
+        this.recargasCelular = recargasCelular;
     }
 }

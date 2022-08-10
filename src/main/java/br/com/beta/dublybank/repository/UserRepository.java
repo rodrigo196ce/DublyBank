@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User,String> {
             "u.email = :chave or u.conta.chavePixAleatoria = :chave")
     User findUserContainChavePix(@Param("chave")String chave);
 
+    @Query("select u from User u where u.telefone = :telefone")
+    User findValueTelefone(@Param("telefone")String telefone);
+
 }

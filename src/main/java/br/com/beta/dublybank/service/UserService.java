@@ -72,5 +72,9 @@ public class UserService {
         return null;
     }
 
+    public User findValueTelefone(String telefone){
+       return this.userRepository.findValueTelefone(telefone);
+    }
+
 
 }
