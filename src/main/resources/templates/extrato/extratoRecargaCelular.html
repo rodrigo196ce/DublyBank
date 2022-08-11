@@ -22,8 +22,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <p class="fst-normal">Valor da recarga</p>
-                            <p class="fw-light" th:text="${'R$ ' +
-                                    #numbers.formatDecimal(recarga.valor,3,'POINT',2,'COMMA')}"></p>
+                            <p class="fw-light" th:text="${#numbers.formatCurrency(recarga.valor)}"></p>
                         </li>
                         <li class="list-group-item">
                             <p class="fst-normal">Data</p>

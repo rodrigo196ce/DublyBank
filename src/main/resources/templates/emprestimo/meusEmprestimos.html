@@ -25,8 +25,7 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <p class="fst-normal">Valor</p>
-                                        <p class="fw-light"
-                                           th:text="${'R$ ' + #numbers.formatDecimal(emprestimo.totalPagar,3,'POINT',2,'COMMA')}"></p>
+                                        <p class="fw-light" th:text="${#numbers.formatCurrency(emprestimo.totalPagar)}"></p>
                                     </li>
                                     <li class="list-group-item">
                                         <p class="fst-normal">Data de pagamento</p>

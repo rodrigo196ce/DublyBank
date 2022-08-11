@@ -14,7 +14,7 @@
 
     <div class="p-3 mb-2 bg-light text-dark mb-4">
         <p class="fs-6" th:text="'Número: '+${numero}"></p>
-        <p class="fs-6" th:text="'Saldo disponível: R$ '+ ${#numbers.formatDecimal(user.conta.saldo,3,'POINT',2,'COMMA')}"></p>
+        <p class="fs-6" th:text="${'Saldo disponível: '+#numbers.formatCurrency(user.conta.saldo)}"></p>
     </div>
 
     <p class="fs-4">Qual o valor da recarga?</p>

@@ -16,8 +16,7 @@
             <div class="card">
                 <h5 class="card-header">Dados da transferência</h5>
                 <div class="card-body">
-                    <div class="fw-light mb-4" th:text="${'Saldo disponível: R$ ' + #numbers.formatDecimal
-                         (user.conta.saldo,3,'POINT',2,'COMMA')}"></div>
+                    <div class="fw-light mb-4" th:text="'Saldo disponível: '+${#numbers.formatCurrency(user.conta.saldo)}"></div>
                     <form th:object="${transferenciaPixDto}" th:action="@{/areaPix/transferencia01}" method="post">
                         <div class="form-floating mb-3">
                             <input th:field="*{valor}" th:errorclass="is-invalid" type="number"

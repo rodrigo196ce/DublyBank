@@ -28,42 +28,43 @@ public class RecargaCelularController {
     private RecargaCelularService recargaCelularService;
 
     @RequestMapping()
-    public String recargaCelular(RecargaCelularDto recargaCelularDto){
+    public String recargaCelular(RecargaCelularDto recargaCelularDto) {
         return "recargaCelular/recargaCelularInicial.html";
     }
 
     @PostMapping("validarNumero")
-    public String validarNumero(@Valid RecargaCelularDto recargaCelularDto, BindingResult result, Model model){
+    public String validarNumero(@Valid RecargaCelularDto recargaCelularDto, BindingResult result, Model model) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "recargaCelular/recargaCelularInicial.html";
         }
         Boolean resultValidacao = recargaCelularService.validarNumeroTelefone(recargaCelularDto.getNumero());
-        if(resultValidacao==false){
-            model.addAttribute("errorTelefone","O telefone inserido não foi encontrado.");
+        if (resultValidacao == false) {
+            model.addAttribute("errorTelefone", "O telefone inserido não foi encontrado.");
             return "recargaCelular/recargaCelularInicial.html";
         }
 
         model.addAttribute("valores", ValoresRecargaCelular.values());
-        model.addAttribute("numero",recargaCelularDto.getNumero());
-        model.addAttribute("user",this.userService.findUserAndConta());
+        model.addAttribute("numero", recargaCelularDto.getNumero());
+        model.addAttribute("user", this.userService.findUserAndConta());
         return "recargaCelular/valores.html";
     }
 
     @RequestMapping("realizarRecarga")
-    public String realizarRecarga(HttpServletRequest request){
+    public String realizarRecarga(HttpServletRequest request) {
         Boolean resultValidacao = this.recargaCelularService.validarSaldo(this.userService.findUserAndConta(),
                 request.getParameter("valoresRecargaCelular"));
-        if(resultValidacao==false){
+        if (resultValidacao == false) {
             request.setAttribute("valores", ValoresRecargaCelular.values());
-            request.setAttribute("numero",request.getParameter("numero"));
-            request.setAttribute("user",this.userService.findUserAndConta());
-            request.setAttribute("errorSaldo","Saldo insuficiente");
+            request.setAttribute("numero", request.getParameter("numero"));
+            request.setAttribute("user", this.userService.findUserAndConta());
+            request.setAttribute("errorSaldo", "Saldo insuficiente");
             return "recargaCelular/valores.html";
         }
-        RecargaCelular recargaCelular = this.recargaCelularService.realizarRecarga(this.userService.findUserAndConta(),request.getParameter("numero"),
-                request.getParameter("valoresRecargaCelular"));
-        request.setAttribute("recarga",recargaCelular);
+        RecargaCelular recargaCelular = this.recargaCelularService.realizarRecarga(this.userService.findUserAndConta(),
+                request.getParameter("numero"), request.getParameter("valoresRecargaCelular"));
+
+        request.setAttribute("recarga", recargaCelular);
         return "extrato/extratoRecargaCelular.html";
     }
 

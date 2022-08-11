@@ -20,8 +20,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <p class="fst-normal">Valor solicitado</p>
-                            <p class="fw-light"
-                               th:text="${'R$ ' + #numbers.formatDecimal(user.conta.emprestimoSimulacao.valorSolicitado,3,'POINT',2,'COMMA')}"></p>
+                            <p class="fw-light" th:text="${#numbers.formatCurrency(user.conta.emprestimoSimulacao.valorSolicitado)}"></p>
                         </li>
                         <li class="list-group-item">
                             <p class="fst-normal">Data de pagamento</p>
@@ -40,8 +39,7 @@
                         </li>
                         <li class="list-group-item">
                             <p class="fst-normal">Total a pagar</p>
-                            <p class="fw-light"
-                               th:text="${'R$ ' + #numbers.formatDecimal(user.conta.emprestimoSimulacao.totalPagar,3,'POINT',2,'COMMA')}"></p>
+                            <p class="fw-light" th:text="${#numbers.formatCurrency(user.conta.emprestimoSimulacao.totalPagar)}"></p>
                         </li>
                     </ul>
                     <a class="btn btn-warning mb-3" th:href="@{/emprestimo/telaDadosSimularEmprestimo}" role="button">Nova simulação</a>

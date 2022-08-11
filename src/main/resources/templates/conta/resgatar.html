@@ -14,8 +14,7 @@
 
         <div class="p-3 mb-2 bg-light text-dark mb-4">
             <p>Total guardado</p>
-            <span th:text="${'R$ ' + #numbers.formatDecimal(
-                user.conta.dinheiroGuardado,3,'POINT',2,'COMMA')}"></span>
+            <span th:text="${#numbers.formatCurrency(user.conta.dinheiroGuardado)}"></span>
         </div>
 
         <div class="row">

@@ -15,12 +15,13 @@
         <div class="col-4">
             <div class="p-3 mb-2 bg-light text-dark mb-4">
                 <p>Saldo disponível</p>
-                <span th:text="${'R$ ' + #numbers.formatDecimal(user.conta.saldo,3,'POINT',2,'COMMA')}"></span>
+                <span th:text="${#numbers.formatCurrency(user.conta.saldo)}"></span>
             </div>
         </div>
         <div class="col-4">
             <div class="list-group" style="font-size: 17px">
-                <a th:href="@{/dinheiroGuardado}" class="list-group-item list-group-item-action list-group-item-light">Dinheiro guardado</a>
+                <a th:href="@{/dinheiroGuardado}" class="list-group-item list-group-item-action list-group-item-light">
+                    Dinheiro guardado</a>
                 <a th:href="@{/historico}" class="list-group-item list-group-item-action list-group-item-light">Histórico</a>
             </div>
         </div>
