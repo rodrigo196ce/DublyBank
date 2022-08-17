@@ -129,7 +129,7 @@ public class ContaService {
        }
     }
     public Boolean validarSaldo(BigDecimal valor,User user){
-        if(user.getConta().getSaldo().compareTo(valor)==1){
+        if(user.getConta().getSaldo().compareTo(valor)==1 || user.getConta().getSaldo().compareTo(valor)==0){
             return true;
         }else{
             return false;
@@ -202,12 +202,12 @@ public class ContaService {
 
         Emprestimo emprestimo = this.emprestimoRepository.findByIdE(ppse.getIdEmprestimo());
 
-        Boolean saldoValid = this.validarSaldo(emprestimo.getTotalPagar(), user);
+        Boolean saldoValid = this.validarSaldo(ppse.getTotalPagar(), user);
         if (saldoValid) {
+            emprestimo.setTotalPagar(ppse.getTotalPagar());
             this.pagamento(emprestimo.getTotalPagar(), user);
             emprestimo.setDataPagamento(ppse.getDataPagamento());
             emprestimo.setJuros(ppse.getJuros());
-            emprestimo.setTotalPagar(ppse.getTotalPagar());
             emprestimo.setTotalMesesFinanciamento(ppse.getTotalMesesFinanciamento());
             emprestimo.setStatus(StatusEmprestimo.FINALIZADO);
             return true;
