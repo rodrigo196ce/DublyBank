@@ -1,5 +1,6 @@
 package br.com.beta.dublybank.service;
 
+import br.com.beta.dublybank.dto.PrePagamentoSimulacaoEmprestimoDto;
 import br.com.beta.dublybank.enums.StatusEmprestimo;
 import br.com.beta.dublybank.model.*;
 import br.com.beta.dublybank.repository.ContaRepository;
@@ -10,10 +11,12 @@ import br.com.beta.dublybank.util.DublyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -43,6 +46,10 @@ public class ContaService {
         Conta conta = this.contaRepository
                 .save(new Conta(random.nextInt(10000),random.nextInt(10000),user));
         return conta;
+    }
+
+    public void pagamento(BigDecimal valorPagamento,User user){
+        user.getConta().setSaldo(user.getConta().getSaldo().subtract(valorPagamento));
     }
 
     @Transactional
@@ -121,6 +128,14 @@ public class ContaService {
            return false;
        }
     }
+    public Boolean validarSaldo(BigDecimal valor,User user){
+        if(user.getConta().getSaldo().compareTo(valor)==1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     @Transactional
     public void transferenciaPix(User user, User userDestinatario, String valor){
@@ -169,6 +184,35 @@ public class ContaService {
             user.getConta().setSaldo(user.getConta().getSaldo().add(user.getConta().getEmprestimoSimulacao().getValorSolicitado()));
             user.getConta().setEmprestimoSimulacao(null);
             return true;
+        }
+    }
+
+    public PrePagamentoSimulacaoEmprestimoDto prePagamento(String idEmprestimo) {
+        Emprestimo emprestimo = this.emprestimoRepository.findByIdE(Integer.valueOf(idEmprestimo));
+        PrePagamentoSimulacaoEmprestimoDto ppse = this.emprestimoService.calcularPrePagamento(emprestimo);
+        return ppse;
+    }
+
+    @Transactional
+    public Boolean pagarEmprestimo(String valorSolicitado, String dataPagamento, String juros, String totalPagar, String totalMesesFinanciamento,
+                                   String idEmprestimo, User user) {
+
+        PrePagamentoSimulacaoEmprestimoDto ppse = this.emprestimoService.tppse(valorSolicitado, dataPagamento, juros, totalPagar,
+                totalMesesFinanciamento, idEmprestimo);
+
+        Emprestimo emprestimo = this.emprestimoRepository.findByIdE(ppse.getIdEmprestimo());
+
+        Boolean saldoValid = this.validarSaldo(emprestimo.getTotalPagar(), user);
+        if (saldoValid) {
+            this.pagamento(emprestimo.getTotalPagar(), user);
+            emprestimo.setDataPagamento(ppse.getDataPagamento());
+            emprestimo.setJuros(ppse.getJuros());
+            emprestimo.setTotalPagar(ppse.getTotalPagar());
+            emprestimo.setTotalMesesFinanciamento(ppse.getTotalMesesFinanciamento());
+            emprestimo.setStatus(StatusEmprestimo.FINALIZADO);
+            return true;
+        } else {
+            return false;
         }
     }
 

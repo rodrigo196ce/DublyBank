@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Empréstimo')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/emprestimo/meusEmprestimos}" role="button">Cancelar</a>
+    </div>
+
+    <div th:if="${ppse.pagamentoAntecipado==true}" class="card text-bg-light mb-3" style="max-width: 45rem;">
+        <div class="card-header">Informativo</div>
+        <div class="card-body">
+            <h5 class="card-title">Pagamento antecipado</h5>
+            <p class="card-text">O pagamento do empréstimo está antecipado, você poderá notar reajuste nos valores.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <h5 class="card-header">Dados do empréstimo</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p class="fst-normal">Valor solicitado</p>
+                            <p class="fw-light" th:text="${#numbers.formatCurrency(ppse.valorSolicitado)}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <div th:if="${ppse.pagamentoAntecipado==true}" >
+                                <p class="fst-normal">Data de pagamento prevista</p>
+                                <p class="fw-light" th:text="${#temporals.format(ppse.dataPagamentoPrevista,'dd/MM/yyyy')}"></p>
+                            </div>
+                            <p class="fst-normal">Data de pagamento</p>
+                            <p class="fw-light" th:text="${#temporals.format(ppse.dataPagamento,'dd/MM/yyyy')}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Parcelamento</p>
+                            <p class="fw-light">Parcela única</p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Juros</p>
+                            <p class="fw-light">Calculo: 3% ao mês.</p>
+                            <p class="fw-light"
+                               th:text="${'Total de meses financiados: ' + ppse.totalMesesFinanciamento}"></p>
+                            <p class="fw-light" th:text="${'Juros Total: ' + ppse.juros + '%'}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Total a pagar</p>
+                            <p class="fw-light" th:text="${#numbers.formatCurrency(ppse.totalPagar)}"></p>
+                        </li>
+                    </ul>
+                    <form th:action="@{/emprestimo/pagar}" method="post">
+                        <input type="hidden" name="idEmprestimo" th:value="${ppse.idEmprestimo}">
+                        <input type="hidden" name="valorSolicitado" th:value="${ppse.valorSolicitado}">
+                        <input type="hidden" name="dataPagamento" th:value="${ppse.dataPagamento}">
+                        <input type="hidden" name="juros" th:value="${ppse.juros}">
+                        <input type="hidden" name="totalPagar" th:value="${ppse.totalPagar}">
+                        <input type="hidden" name="totalMesesFinanciamento" th:value="${ppse.totalMesesFinanciamento}">
+                        <button type="submit" class="btn btn-success">Realizar pagamento</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

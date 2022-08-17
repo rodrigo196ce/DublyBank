@@ -12,7 +12,6 @@ public class Emprestimo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private BigDecimal valorSolicitado;
     private LocalDate dataPagamento;
     private Integer juros;
@@ -22,12 +21,14 @@ public class Emprestimo {
     @ManyToOne
     private Conta conta;
     private Long totalMesesFinanciamento;
+    private LocalDate dataPedido;
 
     public Emprestimo(){}
     public Emprestimo(BigDecimal valorSolicitado,LocalDate dataPagamento){
         this.valorSolicitado = valorSolicitado;
         this.dataPagamento = dataPagamento;
         this.status = StatusEmprestimo.SIMULACAO;
+        this.dataPedido = LocalDate.now();
     }
 
     public Integer getId() {
@@ -92,4 +93,7 @@ public class Emprestimo {
         this.totalMesesFinanciamento = totalMesesFinanciamento;
     }
 
+    public LocalDate getDataPedido() {
+        return dataPedido;
+    }
 }

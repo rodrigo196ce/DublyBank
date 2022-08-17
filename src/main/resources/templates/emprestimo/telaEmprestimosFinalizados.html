@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Meus Empréstimos')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/emprestimo/meusEmprestimos}" role="button">Voltar</a>
+    </div>
+
+    <a class="btn btn-success mb-3" th:href="@{/emprestimo/telaDadosSimularEmprestimo}" role="button">Novo empréstimo</a>
+
+    <div th:if="${not #lists.isEmpty(emprestimos)}">
+        <div class="row mt-3">
+            <div class="col-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="card mb-3" th:each="emprestimo : ${emprestimos}">
+                            <div class="card-header" th:text="${#temporals.format(emprestimo.dataPagamento,'dd/MM/yyyy')}"></div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <p class="fst-normal">Valor solicitado</p>
+                                        <p class="fw-light" th:text="${#numbers.formatCurrency(emprestimo.valorSolicitado)}"></p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="fst-normal">Parcelamento</p>
+                                        <p class="fw-light">Parcela única</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="fst-normal">Juros</p>
+                                        <p class="fw-light">Calculo: 3% ao mês.</p>
+                                        <p class="fw-light"
+                                           th:text="${'Total de meses financiados: ' + emprestimo.totalMesesFinanciamento}"></p>
+                                        <p class="fw-light" th:text="${'Juros Total: ' + emprestimo.juros + '%'}"></p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p class="fst-normal">Total pago</p>
+                                        <p class="fw-light" th:text="${#numbers.formatCurrency(emprestimo.totalPagar)}"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:if="${#lists.isEmpty(emprestimos)}">
+        <div class="row">
+            <div class="col-4">
+                <div class="alert alert-warning" role="alert">
+                    Você não possui nenhum empréstimo finalizado.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
