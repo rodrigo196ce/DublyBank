@@ -33,6 +33,10 @@
                             <p class="fst-normal">Data de cadastro</p>
                             <p class="fw-light" th:text="${#temporals.format(user.dataCadastro,'dd/MM/yyyy')}"></p>
                         </li>
+                        <li class="list-group-item">
+                            <p class="fst-normal">Telefone</p>
+                            <p class="fw-light" th:text="${user.telefone}"></p>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -55,10 +59,9 @@
             </div>
         </div>
     </div>
-    <div class="mt-4">
-        <a col-4 class="btn btn-outline-primary" th:href="@{#}"role="button">Editar</a>
-        <a col-4 class="btn btn-outline-danger" th:href="@{#}"role="button">Remover</a>
-    </div>
+
+    <a class="btn btn-outline-primary mt-4" th:href="@{#}" role="button">Editar</a>
+
 </div>
 </body>
 </html>
