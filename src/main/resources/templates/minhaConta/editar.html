@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+
+<div th:replace="~{base :: logo}"></div>
+
+<div class="container">
+
+    <div th:replace="~{base :: titulo('Editar')}"></div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-outline-secondary mb-3" th:href="@{/minhaConta}" role="button">Voltar</a>
+    </div>
+
+    <div class="card">
+        <form th:object="${editarDto}" class="card-body" th:action="@{/minhaConta/realizarEdicao}" method="post">
+            <div class="form-floating mb-3">
+                <input th:field="*{nome}" th:errorclass="is-invalid" type="text" class="form-control" id="imputNome">
+                <label for="imputNome">Nome</label>
+                <div class="invalid-feedback" th:errors="*{nome}"></div>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{cpf}" th:errorclass="is-invalid" type="text" class="form-control" id="imputCpf">
+                <label for="imputCpf">Cpf</label>
+                <div class="invalid-feedback" th:errors="*{cpf}"></div>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{telefone}" th:errorclass="is-invalid" type="tel" class="form-control" id="imputTel"
+                       pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}" autocomplete="off">
+                <label for="imputTel">Formato: 85-98456-7890</label>
+                <div class="invalid-feedback" th:errors="*{telefone}"></div>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{email}" th:errorclass="is-invalid" type="email" class="form-control" id="imputEmail">
+                <label for="imputEmail">E-mail</label>
+                <div class="invalid-feedback" th:errors="*{email}"></div>
+            </div>
+            <button type="submit" class="btn btn-success mb-2">Enviar</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

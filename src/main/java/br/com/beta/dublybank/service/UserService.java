@@ -1,5 +1,6 @@
 package br.com.beta.dublybank.service;
 
+import br.com.beta.dublybank.dto.EditarDto;
 import br.com.beta.dublybank.model.User;
 import br.com.beta.dublybank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,15 @@ public class UserService {
 
     public User findValueTelefone(String telefone){
        return this.userRepository.findValueTelefone(telefone);
+    }
+
+    @Transactional
+    public void editar(EditarDto editarDto){
+        User user = this.findUser();
+        user.setNome(editarDto.getNome());
+        user.setCpf(editarDto.getCpf());
+        user.setEmail(editarDto.getEmail());
+        user.setTelefone(editarDto.getTelefone());
     }
 
 

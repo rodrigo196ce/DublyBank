@@ -59,8 +59,10 @@
             </div>
         </div>
     </div>
-
-    <a class="btn btn-outline-primary mt-4" th:href="@{#}" role="button">Editar</a>
+    <a class="btn btn-outline-primary mt-4" th:href="@{/minhaConta/editar}" role="button">Editar</a>
+    <div th:if="${mensagem != null}" class="row mt-2">
+        <div class="alert alert-success col-3" role="alert" th:text="${mensagem}"></div>
+    </div>
 
 </div>
 </body>
